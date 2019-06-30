@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Welcome to
+                <span th:if="${#authorization.expression('isAuthenticated()')}" th:text="${#authentication.principal.givenName}">Joe</span>
+                <span th:if="${not #authorization.expression('isAuthenticated()')}">my</span>
+                Okta sample
+            </h1>
+        </div>
+    </div>
+    <div class="row" th:if="${user}">
+        <div class="col">
+            The user <span th:text="${user}">john@doe.com</span> has just been created.
+            Use the credentials you entered to Sign in.
+        </div>
+    </div>
+    <div class="row" th:if="${#authorization.expression('isAuthenticated()')}">
+        <div class="col">
+            Congrats, you've stumbled upon the secret magic kitten.
+        </div>
+    </div>
+    <div class="row" th:if="${#authorization.expression('isAuthenticated()')}">
+        <div class="col">
+            <img src="kitten-3735600_1280.jpg" class="img-fluid" alt="Secret magic kitten">
+        </div>
+    </div>
+</div>
+</body>
+</html>
